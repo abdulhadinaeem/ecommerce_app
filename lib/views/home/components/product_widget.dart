@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/core/constants/app_colors.dart';
 import 'package:ecommerce_app/core/constants/route_names.dart';
-import 'package:ecommerce_app/provider/cart_screen_provider.dart';
-import 'package:ecommerce_app/screens/detail_screen.dart';
+import 'package:ecommerce_app/view_model/cart_screen_provider.dart';
+import 'package:ecommerce_app/views/prodDetails/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DetailScreenProvider extends ChangeNotifier {
+class DetailScreenProvider with ChangeNotifier {
   bool isFavorite = false;
   void onTap() {
     isFavorite = !isFavorite;

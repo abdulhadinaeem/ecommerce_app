@@ -1,24 +1,29 @@
 import 'package:ecommerce_app/core/constants/route_names.dart';
-import 'package:ecommerce_app/screens/cart_screen.dart';
-import 'package:ecommerce_app/screens/detail_screen.dart';
-import 'package:ecommerce_app/screens/view_all_screen.dart';
+import 'package:ecommerce_app/views/cart/cart_screen.dart';
+import 'package:ecommerce_app/views/dashboard/dashboard_screen.dart';
+import 'package:ecommerce_app/views/prodDetails/detail_screen.dart';
+import 'package:ecommerce_app/views/home/home_screen.dart';
+import 'package:ecommerce_app/widget/bottomNavBar/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
   static Route<dynamic> ongenerateRoutes(RouteSettings settings) {
-    final arg = settings.arguments;
     switch (settings.name) {
+      case RouteNames.dashboardScreen:
+        return MaterialPageRoute(
+          builder: (_) => const DashboardScreen(),
+        );
       case RouteNames.cartScreen:
         return MaterialPageRoute(
           builder: (_) => const CartScreen(),
         );
-      case RouteNames.viewAllScreen:
+      case RouteNames.homeScreen:
         return MaterialPageRoute(
-          builder: (_) => const ViewAllScreen(),
+          builder: (_) => const HomeScreen(),
         );
       case RouteNames.detailScreen:
         DetailScreen argument = settings.arguments as DetailScreen;
-        String? image = settings.name;
+
         return MaterialPageRoute(
           builder: (_) => DetailScreen(
             discountPercentage: argument.discountPercentage,
@@ -28,6 +33,8 @@ class AppRoutes {
             title: argument.title,
           ),
         );
+      default:
+        null;
     }
     return MaterialPageRoute(builder: (_) {
       return const Center(

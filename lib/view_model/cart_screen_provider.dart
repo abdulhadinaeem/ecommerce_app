@@ -3,7 +3,7 @@ import 'package:ecommerce_app/model/shoping_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class CartScreenProvider extends ChangeNotifier {
+class CartScreenProvider with ChangeNotifier {
   TextEditingController searchController = TextEditingController();
   bool isLoading = false;
   bool get loading => isLoading;
@@ -26,7 +26,7 @@ class CartScreenProvider extends ChangeNotifier {
       final response = await http.get(
         Uri.parse('https://dummyjson.com/carts'),
       );
-
+      print(response.body);
       if (response.statusCode == 200) {
         final cart = jsonDecode(response.body);
         List cartItems = cart['carts'];
@@ -80,6 +80,7 @@ class CartScreenProvider extends ChangeNotifier {
 
   addProducts() {
     foundUser.addAll(data);
+    notifyListeners();
   }
 
   void checkIsSearching() {
@@ -101,7 +102,7 @@ class CartScreenProvider extends ChangeNotifier {
 
   void checkIsDescending() {
     isDescending = !isDescending;
-    foundUser.sort(
+    data.sort(
       (a, b) => isDescending
           ? (b.price ?? 0).compareTo(a.price ?? 0)
           : (a.price ?? 0).compareTo(b.price ?? 0),

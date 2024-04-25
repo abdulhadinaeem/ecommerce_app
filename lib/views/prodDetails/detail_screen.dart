@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/core/constants/app_colors.dart';
 import 'package:ecommerce_app/core/constants/app_text.dart';
-import 'package:ecommerce_app/provider/detail_screen_provider.dart';
+import 'package:ecommerce_app/view_model/detail_screen_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -110,7 +110,7 @@ class DetailScreen extends StatelessWidget {
                             color: AppColors.primaryColor,
                             onPressed: () {},
                             child: Text(
-                              "Add To Cart",
+                              AppText.addToCart,
                               style: context.textTheme.displayMedium?.copyWith(
                                 color: Colors.white,
                               ),
