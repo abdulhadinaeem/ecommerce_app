@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/core/constants/route_names.dart';
 import 'package:ecommerce_app/views/cart/cart_screen.dart';
 import 'package:ecommerce_app/views/dashboard/dashboard_screen.dart';
-import 'package:ecommerce_app/views/prodDetails/detail_screen.dart';
+import 'package:ecommerce_app/views/productDetails/detail_screen.dart';
 import 'package:ecommerce_app/views/home/home_screen.dart';
 import 'package:ecommerce_app/widget/bottomNavBar/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +31,8 @@ class AppRoutes {
             image: argument.image,
             price: argument.price,
             title: argument.title,
+            favList: argument.favList,
+            isCartScreen: argument.isCartScreen,
           ),
         );
       default:

@@ -3,6 +3,7 @@ import 'package:ecommerce_app/core/constants/app_text.dart';
 import 'package:ecommerce_app/view_model/cart_screen_provider.dart';
 import 'package:ecommerce_app/views/home/components/product_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -42,9 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          AppText.ourProducts,
-                          style: context.textTheme.displayLarge,
+                        FittedBox(
+                          child: Text(
+                            AppText.ourProducts,
+                            style: context.textTheme.displayLarge,
+                          ),
                         ),
                         TextButton(
                           onPressed: provider.checkIsDescending,
@@ -85,6 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             title: provider.data[index].title ?? '',
                             discountPercentage:
                                 provider.data[index].discountPercentage ?? 0,
+                            favList: provider.data.toList(),
+                            index: index,
                           );
                         },
                       ),

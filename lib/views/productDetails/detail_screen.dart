@@ -1,28 +1,34 @@
 import 'package:ecommerce_app/core/constants/app_colors.dart';
 import 'package:ecommerce_app/core/constants/app_text.dart';
+import 'package:ecommerce_app/model/products_model.dart';
+import 'package:ecommerce_app/view_model/cart_screen_provider.dart';
 import 'package:ecommerce_app/view_model/detail_screen_provider.dart';
+import 'package:ecommerce_app/views/cart/components/cart_items_listtile.dart';
+import 'package:ecommerce_app/widget/snackbar/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class DetailScreen extends StatelessWidget {
-  DetailScreen({
-    super.key,
-    required this.discountPrice,
-    required this.image,
-    required this.price,
-    required this.title,
-    required this.discountPercentage,
-  });
+  DetailScreen(
+      {super.key,
+      required this.discountPrice,
+      required this.image,
+      required this.price,
+      required this.title,
+      required this.discountPercentage,
+      required this.favList,
+      required this.isCartScreen});
   String image;
   String title;
   int price;
   int discountPrice;
   num discountPercentage;
-
+  Products favList;
+  bool isCartScreen;
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<DetailScreenProvider>(context);
+    final provider = Provider.of<CartScreenProvider>(context);
     return Scaffold(
       backgroundColor: AppColors.secondaryColor,
       body: SafeArea(
@@ -32,7 +38,10 @@ class DetailScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: const Icon(Icons.arrow_back),
+              icon: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: AppColors.primaryColor,
+              ),
             ),
             Column(
               children: [
@@ -108,9 +117,13 @@ class DetailScreen extends StatelessWidget {
                             ),
                             minWidth: double.infinity,
                             color: AppColors.primaryColor,
-                            onPressed: () {},
+                            onPressed: () {
+                              isCartScreen
+                                  ? null
+                                  : provider.addToCart(context, favList);
+                            },
                             child: Text(
-                              AppText.addToCart,
+                              isCartScreen ? 'Buy Now' : AppText.addToCart,
                               style: context.textTheme.displayMedium?.copyWith(
                                 color: Colors.white,
                               ),
@@ -127,20 +140,17 @@ class DetailScreen extends StatelessWidget {
               top: (context.height * 0.45),
               left: (context.width * 0.64),
               child: GestureDetector(
-                onTap: provider.onTap,
+                onTap: () {
+                  provider.addToFavorites(context, favList);
+                },
                 child: Card(
                   elevation: 1,
                   shape: const CircleBorder(),
                   child: CircleAvatar(
                     radius: 35,
                     backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.favorite,
-                      size: 40,
-                      color: provider.isFavorite
-                          ? Colors.red
-                          : Colors.grey.shade400,
-                    ),
+                    child: Icon(Icons.favorite,
+                        size: 40, color: provider.changeIconColor(favList)),
                   ),
                 ),
               ),

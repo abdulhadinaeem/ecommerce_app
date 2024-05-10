@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/view_model/bottom_bar_view_model.dart';
 import 'package:ecommerce_app/views/cart/cart_screen.dart';
+import 'package:ecommerce_app/views/favorite/favorite_screen.dart';
 import 'package:ecommerce_app/views/home/home_screen.dart';
 import 'package:ecommerce_app/widget/bottomNavBar/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,7 @@ class DashboardScreen extends StatelessWidget {
         children: const [
           HomeScreen(),
           CartScreen(),
-          Text('Fav'),
-          Text('Profile'),
+          FavoriteScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavBar(

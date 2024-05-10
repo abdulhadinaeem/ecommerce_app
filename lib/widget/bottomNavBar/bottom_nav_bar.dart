@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/constants/app_colors.dart';
+import 'package:ecommerce_app/core/constants/app_images.dart';
 import 'package:ecommerce_app/view_model/bottom_bar_view_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
@@ -20,19 +21,29 @@ class BottomNavBar extends StatelessWidget {
       onTap: barViewModel.tabIndex,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: SvgPicture.asset('assets/images/home.svg'),
+          icon: SvgPicture.asset(AppImages.homeIcon),
+          activeIcon: SvgPicture.asset(
+            AppImages.homeActiveIcon,
+            height: 23,
+            color: AppColors.primaryColor,
+          ),
           label: '',
         ),
         BottomNavigationBarItem(
-          icon: SvgPicture.asset('assets/images/cart.svg'),
+          icon: SvgPicture.asset(AppImages.cartIcon),
+          activeIcon: SvgPicture.asset(
+            AppImages.cartActiveIcon,
+            // height: 27,
+            color: AppColors.primaryColor,
+          ),
           label: '',
         ),
         BottomNavigationBarItem(
-          icon: SvgPicture.asset('assets/images/heart.svg'),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset('assets/images/profile.svg'),
+          icon: SvgPicture.asset(AppImages.favoriteIcon),
+          activeIcon: SvgPicture.asset(
+            AppImages.favoriteActiveIcon,
+            color: AppColors.primaryColor,
+          ),
           label: '',
         ),
       ],

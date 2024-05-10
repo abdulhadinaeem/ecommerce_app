@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/constants/app_colors.dart';
+import 'package:ecommerce_app/core/constants/app_text.dart';
 import 'package:ecommerce_app/core/constants/route_names.dart';
 import 'package:ecommerce_app/view_model/cart_screen_provider.dart';
 import 'package:ecommerce_app/views/cart/components/cart_items_listtile.dart';
@@ -16,7 +17,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
-    Provider.of<CartScreenProvider>(context, listen: false).getGetApiResponce();
+    Provider.of<CartScreenProvider>(context, listen: false).getCartItemsList();
 
     super.initState();
   }
@@ -25,33 +26,15 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     final provider = Provider.of<CartScreenProvider>(context);
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: AppColors.secondaryColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.secondaryColor,
         title: Text(
-          "My Cart",
+          AppText.myCart,
           style: context.textTheme.displayLarge,
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                Navigator.pushNamed(
-                  context,
-                  RouteNames.homeScreen,
-                );
-              });
-            },
-            icon: Text(
-              "View All",
-              style: context.textTheme.bodyMedium?.copyWith(
-                color: AppColors.primaryColor,
-              ),
-            ),
-          ),
-        ],
       ),
       body: Stack(
         alignment: Alignment.bottomCenter,
@@ -60,13 +43,18 @@ class _CartScreenState extends State<CartScreen> {
             padding: const EdgeInsets.only(left: 10, right: 10, bottom: 80),
             width: double.infinity,
             child: ListView.builder(
-              itemCount: provider.data.length,
+              itemCount: provider.cartItemsList.length,
               itemBuilder: ((context, index) {
                 return CartItemsListTile(
-                  image: provider.data[index].thumbnail ?? '',
-                  price: provider.data[index].price ?? 0,
-                  title: provider.data[index].title ?? '',
-                  quantity: provider.data[index].quantity ?? 0,
+                  image: provider.cartItemsList[index].thumbnail ?? '',
+                  price: provider.cartItemsList[index].price ?? 0,
+                  title: provider.cartItemsList[index].title ?? '',
+                  quantity: provider.cartItemsList[index].quantity ?? 0,
+                  discountPercentage:
+                      provider.cartItemsList[index].discountPercentage ?? 0,
+                  discountPrice:
+                      provider.cartItemsList[index].discountedPrice ?? 0,
+                  favList: provider.cartItemsList[index],
                 );
               }),
             ),
@@ -89,7 +77,7 @@ class _CartScreenState extends State<CartScreen> {
                         color: Colors.white,
                       ),
                       Text(
-                        'Check Out',
+                        AppText.checkOut,
                         style: context.textTheme.bodyMedium?.copyWith(
                           color: Colors.white,
                         ),
@@ -99,7 +87,7 @@ class _CartScreenState extends State<CartScreen> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

@@ -1,27 +1,38 @@
+import 'dart:developer';
+
 import 'package:ecommerce_app/core/constants/app_colors.dart';
 import 'package:ecommerce_app/core/constants/route_names.dart';
+import 'package:ecommerce_app/model/products_model.dart';
 import 'package:ecommerce_app/view_model/cart_screen_provider.dart';
-import 'package:ecommerce_app/views/prodDetails/detail_screen.dart';
+import 'package:ecommerce_app/views/productDetails/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class ShowProductWidget extends StatelessWidget {
-  ShowProductWidget(
-      {super.key,
-      required this.discountPrice,
-      required this.image,
-      required this.price,
-      required this.title,
-      required this.discountPercentage});
-  String image;
-  String title;
-  int price;
-  int discountPrice;
-  num discountPercentage;
+  final String image;
+  final String title;
+  final int price;
+  final int discountPrice;
+  final num discountPercentage;
+  final List<Products> favList;
+  final int index;
+
+  const ShowProductWidget({
+    super.key,
+    required this.discountPrice,
+    required this.image,
+    required this.price,
+    required this.title,
+    required this.discountPercentage,
+    required this.favList,
+    required this.index,
+  });
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CartScreenProvider>(context);
+
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
@@ -34,11 +45,12 @@ class ShowProductWidget extends StatelessWidget {
             image: image,
             price: price,
             title: title,
+            favList: favList[index],
+            isCartScreen: false,
           ),
         ).then((value) {
           provider.searchController.clear();
           provider.unSelectSearch();
-
           provider.resetList();
         });
       },
@@ -50,12 +62,21 @@ class ShowProductWidget extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.topRight,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.favorite,
-                      color: Colors.grey.shade400,
-                    ),
+                  child: Consumer(
+                    builder: (BuildContext context,
+                        CartScreenProvider cartScreenProvider, Widget? child) {
+                      return IconButton(
+                        onPressed: () {
+                          cartScreenProvider.addToFavorites(
+                              context, favList[index]);
+                        },
+                        icon: Icon(
+                          Icons.favorite,
+                          color: cartScreenProvider
+                              .changeIconColor(favList[index]),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 Center(

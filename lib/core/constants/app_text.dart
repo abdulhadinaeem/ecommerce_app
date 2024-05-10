@@ -5,4 +5,9 @@ class AppText {
   static String ourProducts = 'Our Products';
   static String decending = 'Decending';
   static String ascending = 'Ascending';
+  static String myCart = 'My Cart';
+  static String viewAll = 'View All';
+  static String checkOut = 'Check Out';
+  static String favoriteItemsBox = 'FavoriteItemsBox';
+  static String cartProductsBox = 'CartProductsBox';
 }

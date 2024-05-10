@@ -11,7 +11,6 @@ class NetworkApiServices extends BaseApiServices {
       );
 
       apiResponce(responce);
-      // print('Network:${responce.body}');
     } catch (e) {
       Exception(e.toString());
     }
